@@ -13,7 +13,7 @@ import java.sql.SQLException;
 
 public class SQLTable {
     private static JFrame tableFrame;
-    String[] yesNoOption = {"Evet", "Hayır"};
+    private final String[] yesNoOption = {"Evet", "Hayır"};
     private JTable graduateTable;
     private JPanel mainPanel;
     private JTable facultyTable;

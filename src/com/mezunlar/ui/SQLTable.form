@@ -34,7 +34,9 @@
                 <children>
                   <component id="9a233" class="javax.swing.JTable" binding="graduateTable">
                     <constraints/>
-                    <properties/>
+                    <properties>
+                      <autoCreateRowSorter value="true"/>
+                    </properties>
                   </component>
                 </children>
               </scrollpane>
@@ -96,7 +98,9 @@
                 <children>
                   <component id="2ebbe" class="javax.swing.JTable" binding="facultyTable">
                     <constraints/>
-                    <properties/>
+                    <properties>
+                      <autoCreateRowSorter value="true"/>
+                    </properties>
                   </component>
                 </children>
               </scrollpane>
@@ -158,7 +162,9 @@
                 <children>
                   <component id="f1e3e" class="javax.swing.JTable" binding="fieldTable">
                     <constraints/>
-                    <properties/>
+                    <properties>
+                      <autoCreateRowSorter value="true"/>
+                    </properties>
                   </component>
                 </children>
               </scrollpane>
@@ -220,7 +226,9 @@
                 <children>
                   <component id="651c5" class="javax.swing.JTable" binding="firmTable">
                     <constraints/>
-                    <properties/>
+                    <properties>
+                      <autoCreateRowSorter value="true"/>
+                    </properties>
                   </component>
                 </children>
               </scrollpane>
@@ -282,7 +290,9 @@
                 <children>
                   <component id="b94ba" class="javax.swing.JTable" binding="certificateTable">
                     <constraints/>
-                    <properties/>
+                    <properties>
+                      <autoCreateRowSorter value="true"/>
+                    </properties>
                   </component>
                 </children>
               </scrollpane>
@@ -344,7 +354,9 @@
                 <children>
                   <component id="75fe0" class="javax.swing.JTable" binding="userCertificateTable">
                     <constraints/>
-                    <properties/>
+                    <properties>
+                      <autoCreateRowSorter value="true"/>
+                    </properties>
                   </component>
                 </children>
               </scrollpane>

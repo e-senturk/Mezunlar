@@ -354,8 +354,6 @@ public class AddPanel {
         graduateSurnameField.setText("");
         graduationBirthdayChooser.setDate(NumberTools.generateDate(1995));
         graduateSexComboBox.setSelectedIndex(0);
-        graduateFacultyComboBox.setSelectedIndex(0);
-        graduateFieldComboBox.setSelectedIndex(0);
         graduateStudentNoField.setText("");
         graduationYearChooser.setYear(2005);
         graduateGPAField.setText("");
@@ -376,7 +374,6 @@ public class AddPanel {
 
     private void clearField() {
         fieldNameField.setText("");
-        fieldFacultyComboBox.setSelectedIndex(0);
         fieldPhoneNoField.setText("");
         fieldEmailField.setText("");
         fieldAdressField.setText("");
