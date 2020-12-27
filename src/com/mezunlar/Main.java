@@ -1,6 +1,6 @@
 package com.mezunlar;
 
-import com.mezunlar.ui.Login;
+import com.mezunlar.ui.LoginPanel;
 
 import javax.swing.*;
 
@@ -17,6 +17,6 @@ public class Main {
 
     public static void main(String[] args) {
         theming("com.formdev.flatlaf.FlatIntelliJLaf");
-        Login.init();
+        LoginPanel.init();
     }
 }

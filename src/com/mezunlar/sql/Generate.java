@@ -6,7 +6,7 @@ import com.mezunlar.tools.Log;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class SQLGenerate {
+public class Generate {
     public static String generateInsertFaculty(ArrayList<String> faculty) {
         StringBuilder insert = new StringBuilder("INSERT INTO faculty VALUES (nextval('dep_id'), ");
         for (int i = 0; i < 4; i++) {
@@ -16,7 +16,7 @@ public class SQLGenerate {
         insert.append(FieldCheck.formatString(faculty.get(4), true));
         insert.append(", 0);");
         try {
-            SQLConnection.push(insert.toString(), true);
+            Connection.push(insert.toString(), true);
             Log.addFile(insert.toString());
             return "İşlem Başarılı";
         } catch (SQLException | ClassNotFoundException e) {
@@ -37,7 +37,7 @@ public class SQLGenerate {
         insert.append(FieldCheck.formatString(field.get(4), false));
         insert.append(");");
         try {
-            SQLConnection.push(insert.toString(), true);
+            Connection.push(insert.toString(), true);
             Log.addFile(insert.toString());
             return "İşlem Başarılı";
         } catch (SQLException | ClassNotFoundException e) {
@@ -54,7 +54,7 @@ public class SQLGenerate {
         insert.append(FieldCheck.formatString(firm.get(4), false));
         insert.append(");");
         try {
-            SQLConnection.push(insert.toString(), true);
+            Connection.push(insert.toString(), true);
             Log.addFile(insert.toString());
             return "İşlem Başarılı";
         } catch (SQLException | ClassNotFoundException e) {
@@ -71,7 +71,7 @@ public class SQLGenerate {
         insert.append(FieldCheck.formatString(certificate.get(2), false));
         insert.append(");");
         try {
-            SQLConnection.push(insert.toString(), true);
+            Connection.push(insert.toString(), true);
             Log.addFile(insert.toString());
             return "İşlem Başarılı";
         } catch (SQLException | ClassNotFoundException e) {
@@ -91,7 +91,7 @@ public class SQLGenerate {
         insert.append(FieldCheck.formatString(graduate.get(6), true));
         insert.append(");");
         try {
-            SQLConnection.push(insert.toString(), true);
+            Connection.push(insert.toString(), true);
             Log.addFile(insert.toString());
             generateGraduationInfo(graduate);
             generateProfessionInfo(graduate);
@@ -111,7 +111,7 @@ public class SQLGenerate {
         }
         insert.append(FieldCheck.formatString(graduate.get(8), true));
         insert.append(");");
-        SQLConnection.push(insert.toString(), true);
+        Connection.push(insert.toString(), true);
         Log.addFile(insert.toString());
     }
 
@@ -127,7 +127,7 @@ public class SQLGenerate {
         insert.append("), ");
         insert.append(FieldCheck.formatString(graduate.get(10), false));
         insert.append(");");
-        SQLConnection.push(insert.toString(), true);
+        Connection.push(insert.toString(), true);
         Log.addFile(insert.toString());
     }
 
@@ -141,7 +141,7 @@ public class SQLGenerate {
 
         }
         insert.append(");");
-        SQLConnection.push(insert.toString(), true);
+        Connection.push(insert.toString(), true);
         Log.addFile(insert.toString());
     }
 
@@ -151,7 +151,7 @@ public class SQLGenerate {
         insert.append(", ");
         insert.append(FieldCheck.formatString(certificate, false));
         insert.append(");");
-        SQLConnection.push(insert.toString(), true);
+        Connection.push(insert.toString(), true);
         Log.addFile(insert.toString());
     }
 
@@ -182,7 +182,8 @@ public class SQLGenerate {
             insert.append(FieldCheck.formatString(field, false));
         insert.append(");");
         System.out.println(insert.toString());
-        SQLConnection.push(insert.toString(), true);
+        Connection.push(insert.toString(), true);
         Log.addFile(insert.toString());
     }
+
 }

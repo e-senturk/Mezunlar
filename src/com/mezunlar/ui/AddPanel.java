@@ -1,7 +1,7 @@
 package com.mezunlar.ui;
 
-import com.mezunlar.sql.SQLConnection;
-import com.mezunlar.sql.SQLGenerate;
+import com.mezunlar.sql.Connection;
+import com.mezunlar.sql.Generate;
 import com.mezunlar.sql.Select;
 import com.mezunlar.tools.FieldCheck;
 import com.mezunlar.tools.NumberTools;
@@ -89,7 +89,7 @@ public class AddPanel {
         addFrame.setVisible(true);
         addFrame.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent ev) {
-                SQLTable.init();
+                ListPanel.init();
             }
         });
     }
@@ -174,19 +174,19 @@ public class AddPanel {
     }
 
     public void facultyInit() {
-        DefaultComboBoxModel<Object> model = SQLConnection.getOneColumnList(Select.facultyInit);
+        DefaultComboBoxModel<Object> model = Connection.getOneColumnList(Select.facultyInit);
         graduateFacultyComboBox.setModel(model);
         fieldFacultyComboBox.setModel(model);
     }
 
     public void fieldInit(String installation) {
-        graduateFieldComboBox.setModel(SQLConnection.getOneColumnList(installation));
+        graduateFieldComboBox.setModel(Connection.getOneColumnList(installation));
     }
 
     public void certificateInit() {
         graduateCertificateMenu = new JPopupMenu();
         graduateCertificateOptions = new ArrayList<>();
-        Object[] list = SQLConnection.getOneColumnObject(Select.certificateInit, null);
+        Object[] list = Connection.getOneColumnObject(Select.certificateInit, null);
         for (Object x : list) {
             JMenuItem temp = new JCheckBoxMenuItem(x.toString());
             temp.addActionListener(e -> graduateCertificateMenu.show(graduateCertificateSelector, 0, graduateCertificateSelector.getHeight()));
@@ -196,7 +196,7 @@ public class AddPanel {
     }
 
     public void firmInit() {
-        graduateFirmComboBox.setModel(SQLConnection.getOneColumnList(Select.firmInit, "Çalışmıyor"));
+        graduateFirmComboBox.setModel(Connection.getOneColumnList(Select.firmInit, "Çalışmıyor"));
     }
 
     public void numberFieldInit() {
@@ -262,7 +262,7 @@ public class AddPanel {
             }
         }
         if (result.equals("")) {
-            result = SQLGenerate.generateInsertGraduate(graduateValues, certificates);
+            result = Generate.generateInsertGraduate(graduateValues, certificates);
         }
         if (result.equals("İşlem Başarılı"))
             clearGraduate();
@@ -278,7 +278,7 @@ public class AddPanel {
         facultyValues.add(String.valueOf(facultyBuildYearChooser.getYear()));
         String result = FieldCheck.isValidFaculty(facultyValues);
         if (result.equals("")) {
-            result = SQLGenerate.generateInsertFaculty(facultyValues);
+            result = Generate.generateInsertFaculty(facultyValues);
         }
         if (result.equals("İşlem Başarılı"))
             clearFaculty();
@@ -299,7 +299,7 @@ public class AddPanel {
         fieldValues.add(fieldAdressField.getText());
         String result = FieldCheck.isValidField(fieldValues);
         if (result.equals("")) {
-            result = SQLGenerate.generateInsertField(fieldValues);
+            result = Generate.generateInsertField(fieldValues);
         }
         if (result.equals("İşlem Başarılı"))
             clearField();
@@ -315,7 +315,7 @@ public class AddPanel {
         firmValues.add(firmAdressField.getText());
         String result = FieldCheck.isValidFirm(firmValues);
         if (result.equals("")) {
-            result = SQLGenerate.generateInsertFirm(firmValues);
+            result = Generate.generateInsertFirm(firmValues);
         }
         if (result.equals("İşlem Başarılı"))
             clearFirm();
@@ -329,7 +329,7 @@ public class AddPanel {
         certificateValues.add(certificateResponsibleField.getText());
         String result = FieldCheck.isValidCertificate(certificateValues);
         if (result.equals("")) {
-            result = SQLGenerate.generateInsertCertificate(certificateValues);
+            result = Generate.generateInsertCertificate(certificateValues);
         }
         if (result.equals("İşlem Başarılı"))
             clearCertificate();
@@ -342,7 +342,7 @@ public class AddPanel {
         userCertificateValues.add(userCertificateNameField.getText());
         String result = FieldCheck.isValidUserCertificate(userCertificateValues);
         if (result.equals("")) {
-            result = SQLGenerate.generateCertificateInfoSingle(userCertificateValues.get(1), userCertificateValues.get(0));
+            result = Generate.generateCertificateInfoSingle(userCertificateValues.get(1), userCertificateValues.get(0));
         }
         if (result.equals("İşlem Başarılı"))
             clearUserCertificate();

@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class SQLConnection {
+public class Connection {
     private static final String SQLType = "org.postgresql.Driver";
     private static final String SQLServer = "jdbc:postgresql://localhost:5432/";
     private static String database = "";
@@ -14,19 +14,19 @@ public class SQLConnection {
     public static String output = "";
 
     public static void setDatabase(String database) {
-        SQLConnection.database = database;
+        Connection.database = database;
     }
 
     public static void setId(String id) {
-        SQLConnection.id = id;
+        Connection.id = id;
     }
 
     public static void setPassword(String password) {
-        SQLConnection.password = password;
+        Connection.password = password;
     }
 
-    public static Connection generate() throws ClassNotFoundException, SQLException {
-        Connection conn;
+    public static java.sql.Connection generate() throws ClassNotFoundException, SQLException {
+        java.sql.Connection conn;
         Class.forName(SQLType);
         conn = DriverManager.getConnection(SQLServer + database, id, password);
         if (conn != null && !firstConnection) {
@@ -37,7 +37,7 @@ public class SQLConnection {
     }
 
     public static void push(String pushStatement, boolean insertInto) throws SQLException, ClassNotFoundException {
-        Connection conn = generate();
+        java.sql.Connection conn = generate();
         conn.setAutoCommit(insertInto);
         Statement statement = conn.createStatement();
         statement.executeUpdate(pushStatement);
@@ -48,7 +48,7 @@ public class SQLConnection {
     public static ResultSet get(String getStatement) {
         ResultSet result = null;
         try {
-            Connection conn = generate();
+            java.sql.Connection conn = generate();
             conn.setAutoCommit(false);
             Statement statement = conn.createStatement();
             result = statement.executeQuery(getStatement);
@@ -77,6 +77,11 @@ public class SQLConnection {
         return list.toArray();
     }
 
+    public static String output(String information) {
+        if (output.equals(""))
+            return information;
+        return output;
+    }
 
     public static DefaultComboBoxModel<Object> getOneColumnList(String getStatement) {
         return new DefaultComboBoxModel<>(getOneColumnObject(getStatement, null));

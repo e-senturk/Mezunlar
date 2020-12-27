@@ -1,6 +1,6 @@
 package com.mezunlar.tools;
 
-import com.mezunlar.sql.SQLConnection;
+import com.mezunlar.sql.Connection;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -10,17 +10,30 @@ import java.util.Vector;
 
 
 public class TableMethods {
-    public static void initializeTable(JTable table, String query) {
-        DefaultTableModel tableModel = new DefaultTableModel();
+    public static void initializeTable(JTable table, String query,boolean editable) {
+        DefaultTableModel tableModel;
+        if(editable)
+            tableModel = new DefaultTableModel();
+        else{
+            tableModel = new DefaultTableModel(){
+                @Override
+                public boolean isCellEditable(int i, int i1) {
+                    return false;
+                }
+            };
+        }
         table.setModel(tableModel);
         loadData(query, tableModel);
         if (tableModel.getRowCount() != 0)
             table.setRowSelectionInterval(0, 0);
     }
+    public static void initializeTable(JTable table, String query) {
+        initializeTable(table,query,true);
+    }
 
     public static void loadData(String query, DefaultTableModel tableModel) {
         try {
-            ResultSet rs = SQLConnection.get(query);
+            ResultSet rs = Connection.get(query);
             ResultSetMetaData metaData = rs.getMetaData();
 
             // Names of columns

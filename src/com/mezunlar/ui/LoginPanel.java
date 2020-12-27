@@ -1,11 +1,11 @@
 package com.mezunlar.ui;
 
-import com.mezunlar.sql.SQLConnection;
+import com.mezunlar.sql.Connection;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class Login {
+public class LoginPanel {
     private JPanel mainFrame;
     private JTextField databaseName;
     private JButton loginButton;
@@ -16,7 +16,7 @@ public class Login {
 
     public static void init() {
         login = new JFrame("Mezunlar Bilgi Sistemi");
-        login.setContentPane(new Login().mainFrame);
+        login.setContentPane(new LoginPanel().mainFrame);
         login.setPreferredSize(new Dimension(400, 250));
         login.setLocation(550, 300);
         login.setResizable(false);
@@ -27,16 +27,16 @@ public class Login {
         login.setVisible(true);
     }
 
-    public Login() {
+    public LoginPanel() {
         sqlID.setText("postgres");
         loginButton.addActionListener(e -> {
-            SQLConnection.setDatabase(databaseName.getText());
-            SQLConnection.setId(sqlID.getText());
-            SQLConnection.setPassword(String.valueOf(password.getPassword()));
+            Connection.setDatabase(databaseName.getText());
+            Connection.setId(sqlID.getText());
+            Connection.setPassword(String.valueOf(password.getPassword()));
             try {
-                SQLConnection.generate();
+                Connection.generate();
                 login.dispose();
-                SQLTable.init();
+                ListPanel.init();
             } catch (Exception ex) {
                 errorMessage.setText("Hatalı Şifre");
             }

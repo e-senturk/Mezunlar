@@ -6,10 +6,10 @@ public @interface Select {
             "FROM faculty " +
             "ORDER BY faculty_id " +
             "LIMIT 1);";
-
     String facultyInit = "SELECT faculty_name FROM faculty ORDER BY faculty_id";
     String certificateInit = "SELECT cert_name FROM certificates";
     String firmInit = "SELECT company_name from company";
+    String campusLocationInit = "SELECT DISTINCT department_building_location FROM department";
     String selectGraduate = "SELECT \n" +
             "grad.student_name AS \"İsim\",\n" +
             "grad.student_surname AS \"Soyisim\",\n" +
@@ -71,4 +71,5 @@ public @interface Select {
     String[] firmTableHeader = {"company_name", "company_sector", "company_phone_number", "company_email", "company_address", "company_id"};
     String[] certificateTableHeader = {"cert_name", "cert_administer", "cert_ref"};
     String[] userCertificateTableHeader = {"student_number", "student_name", "student_surname", "cert_name"};
+
 }

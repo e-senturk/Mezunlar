@@ -2,7 +2,7 @@ package com.mezunlar.sql;
 
 import java.sql.SQLException;
 
-public class SQLUpdate {
+public class Update {
     public static String update(String tableName, String areaName, String areaChangedName, String areaValue, String keyName, String keyValue) {
         StringBuilder insert = new StringBuilder("UPDATE ");
         insert.append(tableName);
@@ -17,10 +17,10 @@ public class SQLUpdate {
         insert.append(";");
         System.out.println(insert.toString());
         try {
-            SQLConnection.push(insert.toString(), true);
-            //Log.addFile(insert.toString());
+            Connection.push(insert.toString(), true);
             return areaChangedName + " başarı ile değiştirildi.";
-        } catch (SQLException | ClassNotFoundException e) {
+        }
+        catch (SQLException | ClassNotFoundException e) {
             return areaChangedName + " değiştirilemedi- Hatalı Veri.";
         }
     }
@@ -35,7 +35,7 @@ public class SQLUpdate {
         insert.append(";");
         System.out.println(insert.toString());
         try {
-            SQLConnection.push(insert.toString(), true);
+            Connection.push(insert.toString(), true);
             //Log.addFile(insert.toString());
             return realName + " başarı ile silindi.";
         } catch (SQLException | ClassNotFoundException e) {
