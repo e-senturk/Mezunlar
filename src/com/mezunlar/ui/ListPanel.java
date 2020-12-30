@@ -2,8 +2,8 @@ package com.mezunlar.ui;
 
 import com.mezunlar.sql.Connection;
 import com.mezunlar.sql.Generate;
-import com.mezunlar.sql.Update;
 import com.mezunlar.sql.Select;
+import com.mezunlar.sql.Update;
 import com.mezunlar.tools.FieldCheck;
 import com.mezunlar.tools.TableMethods;
 
@@ -14,6 +14,7 @@ import java.sql.SQLException;
 
 public class ListPanel {
     private static JFrame tableFrame;
+    private final String[] yesNoOption = {"Evet", "Hayır"};
     private JPanel mainPanel;
     private JTable graduateTable;
     private JTable facultyTable;
@@ -46,7 +47,6 @@ public class ListPanel {
     private JButton queryButton4;
     private JButton queryButton5;
     private JButton queryButton6;
-    private final String[] yesNoOption = {"Evet", "Hayır"};
     private String graduateKey = "", facultyKey = "", fieldKey = "", firmKey = "", certificateKey = "", userCertificateKey = "", userCertificateKey3 = "", companyKey = "";
 
     public ListPanel() {
@@ -68,7 +68,7 @@ public class ListPanel {
         tableFrame.setVisible(true);
     }
 
-    private void initUpdate(){
+    private void initUpdate() {
         graduateTable.addPropertyChangeListener(this::updateGraduateMethod);
         facultyTable.addPropertyChangeListener(this::updateFacultyMethod);
         fieldTable.addPropertyChangeListener(this::updateFieldMethod);
@@ -76,7 +76,8 @@ public class ListPanel {
         certificateTable.addPropertyChangeListener(this::updateCertificateMethod);
         userCertificateTable.addPropertyChangeListener(this::updateUserCertificateMethod);
     }
-    private void initDelete(){
+
+    private void initDelete() {
         deleteGraduate.addActionListener(e -> deleteGraduateMethod());
         deleteFaculty.addActionListener(e -> deleteFacultyMethod());
         deleteField.addActionListener(e -> deleteFieldMethod());
@@ -84,34 +85,36 @@ public class ListPanel {
         deleteCertificate.addActionListener(e -> deleteCertificateMethod());
         deleteUserCertificateButton.addActionListener(e -> deleteUserCertificateMethod());
     }
-    private void initAddRefreshQuery(){
+
+    private void initAddRefreshQuery() {
         JButton[] refreshButtons = {refresh1, refresh2, refresh3, refresh4, refresh5, refresh6};
-        for(JButton refreshButton: refreshButtons)
+        for (JButton refreshButton : refreshButtons)
             refreshButton.addActionListener(e -> refreshTable());
-        JButton[] addButtons = {addGraduateButton, addCertificateButton, addFirmButton, addFieldButton, addFacultyButton, addUserCertificateButton};
-        for(int i = 0; i< addButtons.length; i++){
+        JButton[] addButtons = {addGraduateButton, addFacultyButton, addFieldButton, addFirmButton, addCertificateButton, addUserCertificateButton};
+        for (int i = 0; i < addButtons.length; i++) {
             int it = i;
             addButtons[it].addActionListener(e -> {
                 AddPanel.init(it);
                 tableFrame.dispose();
             });
         }
-        JButton [] queryButtons = {queryButton1,queryButton2,queryButton3,queryButton4,queryButton5,queryButton6};
-        for(JButton queryButton: queryButtons){
+        JButton[] queryButtons = {queryButton1, queryButton2, queryButton3, queryButton4, queryButton5, queryButton6};
+        for (JButton queryButton : queryButtons) {
             queryButton.addActionListener(e -> {
                 QueryPanel.init();
                 tableFrame.dispose();
             });
         }
     }
+
     public void refreshTable() {
         boolean isEditing = false;
-        JTable[] tables = {graduateTable,facultyTable,fieldTable,firmTable,certificateTable,userCertificateTable};
-        for(JTable table:tables){
-            if(table.isEditing())
+        JTable[] tables = {graduateTable, facultyTable, fieldTable, firmTable, certificateTable, userCertificateTable};
+        for (JTable table : tables) {
+            if (table.isEditing())
                 isEditing = true;
         }
-        if(isEditing){
+        if (isEditing) {
             info.setText("Tablolar Düzenlenirken Yenilenemez.");
             return;
         }
@@ -122,12 +125,13 @@ public class ListPanel {
         TableMethods.initializeTable(certificateTable, Select.selectCertificate);
         TableMethods.initializeTable(userCertificateTable, Select.selectUserCertificate);
         String output = Connection.output;
-        if(output.equals(""))
+        if (output.equals(""))
             info.setText("Tablolar Başarıyla Güncellendi.");
         else
             info.setText(output);
     }
-    private void updateGraduateMethod(PropertyChangeEvent evt){
+
+    private void updateGraduateMethod(PropertyChangeEvent evt) {
         if ("tableCellEditor".equals(evt.getPropertyName())) {
             if (graduateTable.isEditing()) {
                 graduateKey = graduateTable.getValueAt(graduateTable.getSelectedRow(), 5).toString();
@@ -143,7 +147,8 @@ public class ListPanel {
                 boolean isInteger = false;
                 int row = graduateTable.getSelectedRow();
                 int column = graduateTable.getSelectedColumn();
-                if(row<0) row = 0; if(column<0) column=0;
+                if (row < 0) row = 0;
+                if (column < 0) column = 0;
                 String tableName, tableHeader, notice;
                 if ((column >= 4 && column <= 8) || column == 13)
                     isInteger = true;
@@ -192,7 +197,7 @@ public class ListPanel {
         }
     }
 
-    private void updateFacultyMethod(PropertyChangeEvent evt){
+    private void updateFacultyMethod(PropertyChangeEvent evt) {
         if ("tableCellEditor".equals(evt.getPropertyName())) {
             if (facultyTable.isEditing())
                 facultyKey = facultyTable.getValueAt(facultyTable.getSelectedRow(), 6).toString();
@@ -200,7 +205,8 @@ public class ListPanel {
                 boolean isInteger = false;
                 int row = facultyTable.getSelectedRow();
                 int column = facultyTable.getSelectedColumn();
-                if(row<0) row = 0; if(column<0) column=0;
+                if (row < 0) row = 0;
+                if (column < 0) column = 0;
                 if (column == 2 || column == 5 || column == 6)
                     isInteger = true;
                 String notice = Update.update("faculty",
@@ -213,7 +219,8 @@ public class ListPanel {
             }
         }
     }
-    private void updateFieldMethod(PropertyChangeEvent evt){
+
+    private void updateFieldMethod(PropertyChangeEvent evt) {
         if ("tableCellEditor".equals(evt.getPropertyName())) {
             if (fieldTable.isEditing())
                 fieldKey = fieldTable.getValueAt(fieldTable.getSelectedRow(), 5).toString();
@@ -221,7 +228,8 @@ public class ListPanel {
                 boolean isInteger = false;
                 int row = fieldTable.getSelectedRow();
                 int column = fieldTable.getSelectedColumn();
-                if(row<0) row = 0; if(column<0) column=0;
+                if (row < 0) row = 0;
+                if (column < 0) column = 0;
                 if (column == 4 || column == 5)
                     isInteger = true;
                 String notice = Update.update("department",
@@ -234,7 +242,8 @@ public class ListPanel {
             }
         }
     }
-    private void updateFirmMethod(PropertyChangeEvent evt){
+
+    private void updateFirmMethod(PropertyChangeEvent evt) {
         if ("tableCellEditor".equals(evt.getPropertyName())) {
             if (firmTable.isEditing())
                 firmKey = firmTable.getValueAt(firmTable.getSelectedRow(), 5).toString();
@@ -242,7 +251,8 @@ public class ListPanel {
                 boolean isInteger = false;
                 int row = firmTable.getSelectedRow();
                 int column = firmTable.getSelectedColumn();
-                if(row<0) row = 0; if(column<0) column=0;
+                if (row < 0) row = 0;
+                if (column < 0) column = 0;
                 if (column == 5)
                     isInteger = true;
                 String notice = Update.update("company",
@@ -256,14 +266,15 @@ public class ListPanel {
         }
     }
 
-    private void updateCertificateMethod(PropertyChangeEvent evt){
+    private void updateCertificateMethod(PropertyChangeEvent evt) {
         if ("tableCellEditor".equals(evt.getPropertyName())) {
             if (certificateTable.isEditing())
                 certificateKey = certificateTable.getValueAt(certificateTable.getSelectedRow(), 0).toString();
             else {
                 int row = certificateTable.getSelectedRow();
                 int column = certificateTable.getSelectedColumn();
-                if(row<0) row = 0; if(column<0) column=0;
+                if (row < 0) row = 0;
+                if (column < 0) column = 0;
                 String notice = Update.update("certificates",
                         Select.certificateTableHeader[column],
                         certificateTable.getColumnName(column),
@@ -276,7 +287,8 @@ public class ListPanel {
             }
         }
     }
-    private void updateUserCertificateMethod(PropertyChangeEvent evt){
+
+    private void updateUserCertificateMethod(PropertyChangeEvent evt) {
         if ("tableCellEditor".equals(evt.getPropertyName())) {
             if (userCertificateTable.isEditing()) {
                 userCertificateKey = userCertificateTable.getValueAt(userCertificateTable.getSelectedRow(), 0).toString();
@@ -284,7 +296,8 @@ public class ListPanel {
             } else {
                 int row = userCertificateTable.getSelectedRow();
                 int column = userCertificateTable.getSelectedColumn();
-                if(row<0) row = 0; if(column<0) column=0;
+                if (row < 0) row = 0;
+                if (column < 0) column = 0;
                 String tableName, tableSelector, keyValue;
                 boolean isInteger = false;
                 if (column < 3) {
@@ -312,7 +325,8 @@ public class ListPanel {
             }
         }
     }
-    private void deleteGraduateMethod(){
+
+    private void deleteGraduateMethod() {
         int confirmed = JOptionPane.showOptionDialog(null,
                 "Seçilen mezunlara ait tüm bilgiler silinecektir!", "Uyarı",
                 JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, yesNoOption, null);
@@ -327,7 +341,8 @@ public class ListPanel {
             TableMethods.initializeTable(userCertificateTable, Select.selectUserCertificate);
         }
     }
-    private void deleteFacultyMethod(){
+
+    private void deleteFacultyMethod() {
         int confirmed = JOptionPane.showOptionDialog(null,
                 "Bu faküteye bağlı olan tüm bölümler ve mezunların\nverileri silinecektir!", "Uyarı",
                 JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, yesNoOption, null);
@@ -343,7 +358,8 @@ public class ListPanel {
             TableMethods.initializeTable(fieldTable, Select.selectField);
         }
     }
-    private void deleteFieldMethod(){
+
+    private void deleteFieldMethod() {
         int confirmed = JOptionPane.showOptionDialog(null,
                 "Bu bölümlerden mezun olan tüm öğrenciler silinecektir!", "Uyarı",
                 JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, yesNoOption, null);
@@ -358,7 +374,8 @@ public class ListPanel {
             TableMethods.initializeTable(fieldTable, Select.selectField);
         }
     }
-    private void deleteFirmMethod(){
+
+    private void deleteFirmMethod() {
         int confirmed = JOptionPane.showOptionDialog(null,
                 "Bu firmalarda çalışanların çalışma bilgileri de silinecektir!", "Uyarı",
                 JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, yesNoOption, null);
@@ -373,7 +390,8 @@ public class ListPanel {
             TableMethods.initializeTable(firmTable, Select.selectFirm);
         }
     }
-    private void deleteCertificateMethod(){
+
+    private void deleteCertificateMethod() {
         int confirmed = JOptionPane.showOptionDialog(null,
                 "Bu sertifikaya sahip mezun olmamalıdır!", "Uyarı",
                 JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, yesNoOption, null);
@@ -389,7 +407,8 @@ public class ListPanel {
             TableMethods.initializeTable(userCertificateTable, Select.selectUserCertificate);
         }
     }
-    private void deleteUserCertificateMethod(){
+
+    private void deleteUserCertificateMethod() {
         int confirmed = JOptionPane.showOptionDialog(null,
                 "İlgili mezunlardan sertifika bilgisi silinecektir!", "Uyarı",
                 JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, yesNoOption, null);

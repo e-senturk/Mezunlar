@@ -6,26 +6,13 @@ import javax.swing.*;
 import java.awt.*;
 
 public class LoginPanel {
+    private static JFrame login;
     private JPanel mainFrame;
     private JTextField databaseName;
     private JButton loginButton;
     private JPasswordField password;
     private JLabel errorMessage;
     private JTextField sqlID;
-    private static JFrame login;
-
-    public static void init() {
-        login = new JFrame("Mezunlar Bilgi Sistemi");
-        login.setContentPane(new LoginPanel().mainFrame);
-        login.setPreferredSize(new Dimension(400, 250));
-        login.setLocation(550, 300);
-        login.setResizable(false);
-        login.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        ImageIcon img = new ImageIcon("res/ytulogo.png");
-        login.setIconImage(img.getImage());
-        login.pack();
-        login.setVisible(true);
-    }
 
     public LoginPanel() {
         sqlID.setText("postgres");
@@ -43,5 +30,16 @@ public class LoginPanel {
         });
     }
 
-
+    public static void init() {
+        login = new JFrame("Mezunlar Bilgi Sistemi");
+        login.setContentPane(new LoginPanel().mainFrame);
+        login.setPreferredSize(new Dimension(400, 250));
+        login.setLocation(550, 300);
+        login.setResizable(false);
+        login.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        ImageIcon img = new ImageIcon("res/ytulogo.png");
+        login.setIconImage(img.getImage());
+        login.pack();
+        login.setVisible(true);
+    }
 }

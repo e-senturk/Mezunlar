@@ -7,11 +7,11 @@ import java.util.ArrayList;
 public class Connection {
     private static final String SQLType = "org.postgresql.Driver";
     private static final String SQLServer = "jdbc:postgresql://localhost:5432/";
+    public static String output = "";
     private static String database = "";
     private static String id = "postgres";
     private static String password = "";
     private static boolean firstConnection = false;
-    public static String output = "";
 
     public static void setDatabase(String database) {
         Connection.database = database;
@@ -41,11 +41,17 @@ public class Connection {
         conn.setAutoCommit(insertInto);
         Statement statement = conn.createStatement();
         statement.executeUpdate(pushStatement);
+        SQLWarning warning = statement.getWarnings();
+        while (warning != null) {
+            JOptionPane.showMessageDialog(null, warning.getMessage(), "Uyarı", JOptionPane.INFORMATION_MESSAGE);
+            warning = warning.getNextWarning();
+        }
         statement.close();
         conn.close();
     }
 
     public static ResultSet get(String getStatement) {
+        output = "";
         ResultSet result = null;
         try {
             java.sql.Connection conn = generate();
@@ -61,6 +67,7 @@ public class Connection {
     }
 
     public static Object[] getOneColumnObject(String getStatement, String firstColumn) {
+        output = "";
         ResultSet result = get(getStatement);
         ArrayList<String> list = new ArrayList<>();
         if (firstColumn != null) {
@@ -90,6 +97,4 @@ public class Connection {
     public static DefaultComboBoxModel<Object> getOneColumnList(String getStatement, String firstColumn) {
         return new DefaultComboBoxModel<>(getOneColumnObject(getStatement, firstColumn));
     }
-
-
 }

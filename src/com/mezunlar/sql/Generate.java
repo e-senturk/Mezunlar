@@ -181,7 +181,6 @@ public class Generate {
         else
             insert.append(FieldCheck.formatString(field, false));
         insert.append(");");
-        System.out.println(insert.toString());
         Connection.push(insert.toString(), true);
         Log.addFile(insert.toString());
     }

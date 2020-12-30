@@ -10,12 +10,12 @@ import java.util.Vector;
 
 
 public class TableMethods {
-    public static void initializeTable(JTable table, String query,boolean editable) {
+    public static void initializeTable(JTable table, String query, boolean editable) {
         DefaultTableModel tableModel;
-        if(editable)
+        if (editable)
             tableModel = new DefaultTableModel();
-        else{
-            tableModel = new DefaultTableModel(){
+        else {
+            tableModel = new DefaultTableModel() {
                 @Override
                 public boolean isCellEditable(int i, int i1) {
                     return false;
@@ -27,8 +27,9 @@ public class TableMethods {
         if (tableModel.getRowCount() != 0)
             table.setRowSelectionInterval(0, 0);
     }
+
     public static void initializeTable(JTable table, String query) {
-        initializeTable(table,query,true);
+        initializeTable(table, query, true);
     }
 
     public static void loadData(String query, DefaultTableModel tableModel) {
@@ -48,14 +49,19 @@ public class TableMethods {
             while (rs.next()) {
                 Vector<Object> vector = new Vector<>();
                 for (int i = 1; i <= columnCount; i++) {
-                    vector.add(rs.getObject(i));
+                    Object x = rs.getObject(i);
+                    if (x != null && x.toString().equalsIgnoreCase("female"))
+                        x = "Kadın";
+                    if (x != null && x.toString().equalsIgnoreCase("male"))
+                        x = "Erkek";
+                    vector.add(x);
                 }
                 data.add(vector);
             }
 
             tableModel.setDataVector(data, columnNames);
         } catch (Exception e) {
-            System.out.println("error");
+            System.out.println(e.toString());
         }
     }
 }

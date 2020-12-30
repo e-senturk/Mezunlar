@@ -21,6 +21,14 @@ import java.util.Calendar;
 import java.util.Objects;
 
 public class AddPanel {
+    JPanel graduatePanel;
+    JPanel facultyPanel;
+    JPanel fieldPanel;
+    JPanel firmPanel;
+    JPanel certificatePanel;
+    JPanel userCertificatePanel;
+    JDateChooser graduationBirthdayChooser;
+    JYearChooser graduationYearChooser, facultyBuildYearChooser;
     private JPanel mainFrame;
     private JPanel graduateBirthdayPicker;
     private JPanel graduateYearPicker;
@@ -62,37 +70,12 @@ public class AddPanel {
     private JLabel logArea;
     private JButton graduateCertificateSelector;
     private JTabbedPane mainPanel;
-    JPanel graduatePanel;
-    JPanel facultyPanel;
-    JPanel fieldPanel;
-    JPanel firmPanel;
-    JPanel certificatePanel;
-    JPanel userCertificatePanel;
     private JTextField userCertificateNameField;
     private JTextField userCerficiateGradNoField;
     private JButton addUserCertificate;
     private JPopupMenu graduateCertificateMenu;
     private ArrayList<JMenuItem> graduateCertificateOptions;
     private boolean isOpen = false;
-    JDateChooser graduationBirthdayChooser;
-    JYearChooser graduationYearChooser, facultyBuildYearChooser;
-
-    public static void init(int order) {
-        JFrame addFrame = new JFrame("Yeni Eleman Ekleme");
-        addFrame.setContentPane(new AddPanel(order).mainFrame);
-        addFrame.setPreferredSize(new Dimension(450, 640));
-        addFrame.setLocation(480, 120);
-        addFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        ImageIcon img = new ImageIcon("res/ytulogo.png");
-        addFrame.setIconImage(img.getImage());
-        addFrame.pack();
-        addFrame.setVisible(true);
-        addFrame.addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent ev) {
-                ListPanel.init();
-            }
-        });
-    }
 
     public AddPanel(int order) {
         daySelectorInit();
@@ -156,6 +139,23 @@ public class AddPanel {
             }
         });
         graduateFirmComboBox.addActionListener(e -> graduateFieldField.setEditable(graduateFirmComboBox.getSelectedIndex() != 0));
+    }
+
+    public static void init(int order) {
+        JFrame addFrame = new JFrame("Yeni Eleman Ekleme");
+        addFrame.setContentPane(new AddPanel(order).mainFrame);
+        addFrame.setPreferredSize(new Dimension(450, 640));
+        addFrame.setLocation(480, 120);
+        addFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        ImageIcon img = new ImageIcon("res/ytulogo.png");
+        addFrame.setIconImage(img.getImage());
+        addFrame.pack();
+        addFrame.setVisible(true);
+        addFrame.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent ev) {
+                ListPanel.init();
+            }
+        });
     }
 
     public void daySelectorInit() {
